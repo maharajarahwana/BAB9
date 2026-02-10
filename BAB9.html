@@ -157,7 +157,7 @@ const nextBtn = document.getElementById("nextBtn");
 const card = document.querySelector(".card");
 
 function showQuestion() {
-  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  questionEl.textContent = questions[index].soal;
   answerInput.value = "";
   answerInput.focus();
 }
@@ -191,7 +191,6 @@ function showResult() {
 
   card.innerHTML = `
     <h2>Hasil</h2>
-    <p class="result">Nilai: ${score} / ${questions.length}</p>
     <hr>
     <p>Kunci Jawaban:</p>
     <ol>${answerList}</ol>
