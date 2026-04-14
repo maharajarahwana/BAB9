@@ -10,68 +10,110 @@
     
   <body>
   <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>BAB1</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Latihan Kosakata</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB9</title>
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  .card {
-    background: white;
-    padding: 30px;
-    width: 400px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  input {
-    width: 90%;
-    padding: 8px;
-    margin-top: 15px;
-  }
-  button {
-    margin-top: 20px;
-    padding: 8px 15px;
-    cursor: pointer;
-  }
-  .result {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .wrong { color: red; }
-  .correct { color: green; }
-  ol { text-align:left; max-height:400px; overflow:auto; }
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  width:100%;
+  max-width:500px;
+  margin:auto;
+  padding:25px 20px;
+  text-align:center;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+#question{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  margin-top:10px;
+  border:2px solid orange;
+  border-radius:6px;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  margin-top:15px;
+  cursor:pointer;
+  background:#007BFF;
+  color:white;
+  border:none;
+  border-radius:6px;
+}
+
+.result{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.correct{
+  color:green;
+}
+
+.wrong{
+  color:red;
+}
+
+/* Perbaikan agar nomor tidak terpotong */
+
+ol{
+  text-align:left;
+  max-height:65vh;
+  overflow-y:auto;
+  padding-left:30px;
+  margin:0;
+}
+
+li{
+  margin-bottom:8px;
+  line-height:1.4;
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="card">
-  <h2 id="question"></h2>
-  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
-  <br>
-  <button id="nextBtn">Selanjutnya</button>
+
+<h2 id="question"></h2>
+
+<input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+
+<button id="nextBtn">Selanjutnya</button>
+
 </div>
 
 <script>
+
 let questions = [
+
 { soal: "음식 주문", jawaban: "pesan makanan" },
 { soal: "피자", jawaban: "pizza" },
 { soal: "빵", jawaban: "roti" },
@@ -142,10 +184,10 @@ let questions = [
 { soal: "종류", jawaban: "jenis" },
 { soal: "덕분", jawaban: "berkat, karena" },
 { soal: "탕수육", jawaban: "daging babi manis" },
+
 ];
 
-// Acak soal
-questions = questions.sort(() => Math.random() - 0.5);
+questions = questions.sort(()=>Math.random()-0.5);
 
 let index = 0;
 let score = 0;
@@ -156,53 +198,58 @@ const answerInput = document.getElementById("answerInput");
 const nextBtn = document.getElementById("nextBtn");
 const card = document.querySelector(".card");
 
-function showQuestion() {
+function showQuestion(){
   questionEl.textContent = questions[index].soal;
-  answerInput.value = "";
+  answerInput.value="";
   answerInput.focus();
 }
 
-nextBtn.addEventListener("click", () => {
-  const userAnswer = answerInput.value.trim().toLowerCase();
-  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+nextBtn.addEventListener("click",()=>{
 
-  if (userAnswer === questions[index].jawaban) {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+
+  userAnswers[index] = userAnswer;
+
+  if(userAnswer === questions[index].jawaban){
     score++;
   }
 
   index++;
-  if (index < questions.length) {
+
+  if(index < questions.length){
     showQuestion();
-  } else {
+  }else{
     showResult();
   }
+
 });
 
-function showResult() {
-  let answerList = "";
-  questions.forEach((q, i) => {
-    if (userAnswers[i] === q.jawaban) {
+function showResult(){
+
+  let answerList="";
+
+  questions.forEach((q,i)=>{
+
+    if(userAnswers[i] === q.jawaban){
       answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
-    } else {
+    }else{
       answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
-                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+      Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
     }
+
   });
 
   card.innerHTML = `
-    <h2>Hasil</h2>
-    <hr>
-    <p>Kunci Jawaban:</p>
-    <ol>${answerList}</ol>
+  <hr>
+  <p>Kunci Jawaban:</p>
+  <ol>${answerList}</ol>
   `;
+
 }
 
 showQuestion();
+
 </script>
 
 </body>
-</html>
-    
-  </body>
-  
 </html>
